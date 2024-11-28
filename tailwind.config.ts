@@ -9,7 +9,7 @@ export default {
   ],
   theme: {
   	extend: {
-		  colors: {
+		colors: {
 			primaryRed: 'hsl(var(--primary-red))',
 			secondaryRed: 'hsl(var(--secondary-red))',
 			lightGray: 'hsl(var(--light-gray))',
@@ -60,7 +60,7 @@ export default {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
-  		}
+		  },
   	}
   },
   plugins: [require("tailwindcss-animate")],
