@@ -9,7 +9,12 @@ export default {
   ],
   theme: {
   	extend: {
-  		colors: {
+		  colors: {
+			primaryRed: 'hsl(var(--primary-red))',
+			secondaryRed: 'hsl(var(--secondary-red))',
+			lightGray: 'hsl(var(--light-gray))',
+			medGray: 'hsl(var(--medium-gray))',
+			darkGray: 'hsl(var(--dark-gray))',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {
