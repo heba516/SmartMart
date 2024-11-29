@@ -60,6 +60,10 @@ export default {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
+		},
+		boxShadow: {
+			'outline-gray': '0px 0px 0px 4px hsla(0, 0%, 66%, 0.25)',
+			'error': '0px 0px 0px 4px hsla(358, 100%, 83%, 1)'
 		  },
   	}
   },
