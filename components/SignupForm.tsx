@@ -12,8 +12,12 @@ import {
   FormMessage,
   Input,
   Button,
+  Checkbox,
 } from "./ui";
-import clsx from "clsx";
+import { PasswordValidationChecklist } from "./CheckValidationList";
+import { cn } from "@/lib/utils";
+import { Icon } from "@iconify/react";
+import { useState } from "react";
 
 const formSchema = z
   .object({
@@ -39,7 +43,7 @@ const formSchema = z
       }),
     confirmPassword: z.string(),
   })
-  .refine((data) => data.password !== data.confirmPassword, {
+  .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match.",
     path: ["confirmPassword"],
   });
@@ -48,6 +52,7 @@ interface IInput {
   name: "firstName" | "lastName" | "email" | "password" | "confirmPassword";
   label: string;
   placeholder: string;
+  type: string;
 }
 
 const groupedInputs: IInput[] = [
@@ -55,11 +60,13 @@ const groupedInputs: IInput[] = [
     name: "firstName",
     label: "First name",
     placeholder: "Enter your first name",
+    type: "text",
   },
   {
     name: "lastName",
     label: "Last name",
     placeholder: "Enter your last name",
+    type: "text",
   },
 ];
 const inputs: IInput[] = [
@@ -67,16 +74,19 @@ const inputs: IInput[] = [
     name: "email",
     label: "Email address",
     placeholder: "Enter your email address",
+    type: "text",
   },
   {
     name: "password",
     label: "Passwordme",
     placeholder: "Enter your password",
+    type: "password",
   },
   {
     name: "confirmPassword",
     label: "Confirm password",
     placeholder: "Enter your password again",
+    type: "password",
   },
 ];
 
@@ -95,9 +105,16 @@ const SignupForm = () => {
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
   }
+
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const password = form.watch("password");
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <div className="flex items-center justify-between gap-3">
           {groupedInputs.map((input, index) => (
             <FormField
@@ -106,14 +123,15 @@ const SignupForm = () => {
               name={input.name}
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel className="font-semibold text-base">
+                  <FormLabel className="font-semibold text-base text-black">
                     {input.label}
                   </FormLabel>
                   <FormControl>
                     <Input
-                      //   className={clsx(
-                      //     form.formState.errors[input.name] && "shadow-error"
-                      //   )}
+                      type={input.type}
+                      className={cn(
+                        form.formState.errors[input.name] && "shadow-error"
+                      )}
                       placeholder={input.placeholder}
                       {...field}
                     />
@@ -132,23 +150,53 @@ const SignupForm = () => {
             name={input.name}
             render={({ field }) => (
               <FormItem className="w-full">
-                <FormLabel className="font-semibold text-base">
+                <FormLabel className="font-semibold text-base text-black">
                   {input.label}
                 </FormLabel>
                 <FormControl>
-                  <Input
-                    className={clsx(
-                      form.formState.errors[input.name] && "shadow-error"
+                  <div className="relative">
+                    <Input
+                      type={
+                        input.type === "password" && passwordVisible
+                          ? "text"
+                          : input.type
+                      }
+                      className={cn(
+                        form.formState.errors[input.name] && "shadow-error"
+                      )}
+                      placeholder={input.placeholder}
+                      {...field}
+                    />
+                    {input.type === "password" && (
+                      <button
+                        type="button"
+                        onClick={togglePasswordVisibility}
+                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-xl text-gray-500 focus:outline-none"
+                      >
+                        {passwordVisible ? (
+                          <Icon
+                            icon="fluent:eye-off-20-regular"
+                            width="20"
+                            height="20"
+                          />
+                        ) : (
+                          <Icon
+                            icon="fluent:eye-20-regular"
+                            width="20"
+                            height="20"
+                          />
+                        )}
+                      </button>
                     )}
-                    placeholder={input.placeholder}
-                    {...field}
-                  />
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
         ))}
+
+        <PasswordValidationChecklist password={password} />
 
         <Button
           variant={"default"}
@@ -157,6 +205,17 @@ const SignupForm = () => {
         >
           Create account
         </Button>
+
+        <div className="flex items-center space-x-3">
+          <Checkbox id="terms" />
+          <label
+            htmlFor="terms"
+            className="text-base font-normal leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+          >
+            I want to receive emails about the product, feature updates, events,
+            and marketing promotions.
+          </label>
+        </div>
       </form>
     </Form>
   );

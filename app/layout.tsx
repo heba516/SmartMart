@@ -11,6 +11,9 @@ const urbanist = Urbanist({
 export const metadata: Metadata = {
   title: "Smart Mart",
   description: "",
+  icons: {
+    icon: "/logo.png",
+  },
 };
 
 export default function RootLayout({
