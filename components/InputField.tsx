@@ -49,8 +49,11 @@ export default function InputField() {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="">
-                <div className="flex items-center justify-between gap-3"></div>
+            <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="px-8 md:px-20 lg:px-7"
+            >
+                <div className="flex items-center justify-between gap-3 "></div>
 
                 {inputs.map((input, index) => (
                     <FormField
