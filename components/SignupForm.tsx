@@ -41,7 +41,7 @@ const formSchema = z
       .regex(/[\W_]/, {
         message: "Password must contain at least one special character.",
       }),
-    confirmPassword: z.string(),
+    confirmPassword: z.string().min(8, { message: "Passwords do not match." }),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match.",
@@ -200,7 +200,7 @@ const SignupForm = () => {
 
         <Button
           variant={"default"}
-          className="w-full p-[10px] text-xl leading-4 font-semibold rounded-lg bg-primaryRed"
+          className="w-full  h-12 text-xl leading-4 font-semibold rounded-lg bg-primaryRed"
           type="submit"
         >
           Create account

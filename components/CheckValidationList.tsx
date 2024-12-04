@@ -1,3 +1,4 @@
+"use client";
 import clsx from "clsx";
 import { Icon } from "@iconify/react";
 
@@ -15,7 +16,7 @@ export const PasswordValidationChecklist = ({
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-3 mb-5">
       {rules.map((rule, index) => (
         <div key={index} className="flex items-center space-x-2">
           <span>
