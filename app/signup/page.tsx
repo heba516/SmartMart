@@ -2,7 +2,6 @@ import SignupForm from "@/components/SignupForm";
 import SignupWithGoogleBtn from "@/components/SignupWithGoogleBtn";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 
 const page = () => {
     return (
@@ -38,7 +37,6 @@ const page = () => {
             </div>
             <div className="w-full lg:w-3/4">
                 <SignupWithGoogleBtn>Sign up with Google</SignupWithGoogleBtn>
-
                 <div className="inline-flex items-center justify-center w-full">
                     <hr className="w-full h-px my-8 bg-medGray border-0 " />
                     <span className="absolute px-3 text-base font-medium text-medGray -translate-x-1/2 bg-white left-1/2 ">
@@ -46,6 +44,12 @@ const page = () => {
                     </span>
                 </div>
 
+      <p className="text-base font-normal mt-4">
+        By creating an account, you agree to the
+        <span className="underline mx-1">Terms of use</span> and
+        <span className="underline mx-1">Privacy Policy</span>.
+      </p>
+    </div>
                 <SignupForm />
             </div>
         </div>
