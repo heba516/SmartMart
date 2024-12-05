@@ -1,5 +1,4 @@
 "use client";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -18,6 +17,8 @@ import { PasswordValidationChecklist } from "./CheckValidationList";
 import { cn } from "@/lib/utils";
 import { Icon } from "@iconify/react";
 import { useState } from "react";
+import { signup } from "@/app/actions/auth";
+import { useRouter } from "next/navigation";
 
 const formSchema = z
   .object({
@@ -102,8 +103,20 @@ const SignupForm = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  const router = useRouter();
+  const [loading, setLoading] = useState<boolean>(false);
+
+  async function onSubmit(data: z.infer<typeof formSchema>) {
+    try {
+      setLoading(true);
+      const res = await signup(data);
+      console.log(res);
+      router.push("/login");
+    } catch (error) {
+      throw error;
+    } finally {
+      setLoading(false);
+    }
   }
 
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -199,6 +212,7 @@ const SignupForm = () => {
         <PasswordValidationChecklist password={password} />
 
         <Button
+          disabled={loading}
           variant={"default"}
           className="w-full  h-12 text-xl leading-4 font-semibold rounded-lg bg-primaryRed"
           type="submit"
