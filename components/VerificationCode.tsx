@@ -39,11 +39,12 @@ const VerificationCode = () => {
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     console.log(data);
   }
+
   return (
     <div className="w-full h-screen px-4 py-8 lg:px-5 lg:py-10 space-y-28">
       <Link
         className="text-base font-medium flex items-center xl:mx-20"
-        href={"/"}
+        href={"/login"}
       >
         <Icon
           icon="solar:alt-arrow-left-outline"
