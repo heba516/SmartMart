@@ -1,10 +1,10 @@
 import ForgetPasswordLayout from "@/components/ForgetPasswordImage";
-import CreateNewPassword from "@/components/CreateNewPassword";
+import VerificationCode from "@/components/VerificationCode";
 
 const page = () => {
   return (
     <div className="flex">
-      <CreateNewPassword />
+      <VerificationCode />
       <ForgetPasswordLayout />
     </div>
   );
