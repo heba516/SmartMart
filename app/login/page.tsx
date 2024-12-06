@@ -16,7 +16,7 @@ export default function page() {
                 />
             </div>
             <div className="flex flex-col item-center justify-center">
-                <div className="w-full p-5 mx-auto flex flex-col items-center justify-between">
+                <div className="w-full p-3 mx-auto flex flex-col items-center justify-between">
                     <div className="w-full  flex items-center justify-center">
                         <p className="text-base font-medium">
                             Don’t have account ?{" "}
@@ -28,7 +28,7 @@ export default function page() {
                             </Link>
                         </p>
                     </div>
-                    <div className="space-y-1 text-center mt-8 mb-8">
+                    <div className="space-y-1 text-center mt-6 mb-5">
                         <Image
                             className="mx-auto"
                             src={"/logo.png"}
