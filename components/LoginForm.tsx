@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
-import { Icon } from '@iconify/react';
+import { Icon } from "@iconify/react";
 import { z } from "zod";
 import {
     Form,
@@ -17,6 +17,9 @@ import {
     Checkbox,
 } from "./ui";
 import clsx from "clsx";
+import { login } from "@/app/actions/auth";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
     email: z.string().email({ message: "Invalid email address." }),
@@ -46,6 +49,7 @@ interface IInput {
     name: "email" | "password";
     label: string;
     placeholder: string;
+    type: string;
 }
 
 const inputs: IInput[] = [
@@ -53,11 +57,13 @@ const inputs: IInput[] = [
         name: "email",
         label: "Email address",
         placeholder: "enter your email address",
+        type: "text",
     },
     {
         name: "password",
         label: "Password",
         placeholder: "enter your password",
+        type: "password",
     },
 ];
 
@@ -70,9 +76,29 @@ export default function LoginForm() {
         },
     });
 
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values);
+    const router = useRouter();
+    const [loading, setLoading] = useState<boolean>(false);
+    const [error, setError] = useState<boolean>(false);
+
+    async function onSubmit(data: z.infer<typeof formSchema>) {
+        try {
+            setLoading(true);
+            const res = await login(data);
+            console.log(res);
+            router.push("/");
+        } catch (error) {
+            //throw error;
+            console.log(error);
+            setError(true);
+        } finally {
+            setLoading(false);
+        }
     }
+
+    const [passwordVisible, setPasswordVisible] = useState(false);
+    const togglePasswordVisibility = () => {
+        setPasswordVisible(!passwordVisible);
+    };
 
     return (
         <Form {...form}>
@@ -90,14 +116,46 @@ export default function LoginForm() {
                                     {input.label}
                                 </FormLabel>
                                 <FormControl>
-                                    <Input
-                                        className={clsx(
-                                            form.formState.errors[input.name] &&
-                                                "shadow-error"
+                                    <div className="relative">
+                                        <Input
+                                            type={
+                                                input.type === "password" &&
+                                                passwordVisible
+                                                    ? "text"
+                                                    : input.type
+                                            }
+                                            className={clsx(
+                                                form.formState.errors[
+                                                    input.name
+                                                ] && "shadow-error"
+                                            )}
+                                            placeholder={input.placeholder}
+                                            {...field}
+                                        />
+                                        {input.type === "password" && (
+                                            <button
+                                                type="button"
+                                                onClick={
+                                                    togglePasswordVisibility
+                                                }
+                                                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-xl text-gray-500 focus:outline-none"
+                                            >
+                                                {passwordVisible ? (
+                                                    <Icon
+                                                        icon="fluent:eye-off-20-regular"
+                                                        width="20"
+                                                        height="20"
+                                                    />
+                                                ) : (
+                                                    <Icon
+                                                        icon="fluent:eye-20-regular"
+                                                        width="20"
+                                                        height="20"
+                                                    />
+                                                )}
+                                            </button>
                                         )}
-                                        placeholder={input.placeholder}
-                                        {...field}
-                                    />
+                                    </div>
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -127,7 +185,16 @@ export default function LoginForm() {
                     </Link>
                 </div>
 
+                {error && (
+                    <div className="my-2">
+                        <p className="text-center text-primaryRed">
+                            Could’nt find Your account
+                        </p>
+                    </div>
+                )}
+
                 <Button
+                    disabled={loading}
                     variant={"default"}
                     className="w-full p-[10px] text-xl leading-4 font-semibold rounded-lg bg-primaryRed mt-4"
                     type="submit"

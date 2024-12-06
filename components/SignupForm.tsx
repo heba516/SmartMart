@@ -79,7 +79,7 @@ const inputs: IInput[] = [
   },
   {
     name: "password",
-    label: "Passwordme",
+    label: "Password",
     placeholder: "Enter your password",
     type: "password",
   },
