@@ -97,13 +97,14 @@ const CreateNewPassword = () => {
               new password must be different from current password
             </FormDescription>
           </div>
+
           {inputs.map((input, index) => (
             <FormField
               key={index}
               control={form.control}
               name={input.name}
               render={({ field }) => (
-                <FormItem className="w-full">
+                <FormItem className="w-full my-5">
                   <FormLabel className="font-semibold text-base text-black">
                     {input.label}
                   </FormLabel>
@@ -145,12 +146,13 @@ const CreateNewPassword = () => {
                     </div>
                   </FormControl>
                   <FormMessage />
+                  {input.name === "password" && (
+                    <PasswordValidationChecklist password={password} />
+                  )}
                 </FormItem>
               )}
             />
           ))}
-
-          <PasswordValidationChecklist password={password} />
 
           <Button
             variant={"default"}

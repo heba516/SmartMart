@@ -16,7 +16,7 @@ export const PasswordValidationChecklist = ({
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-3 mb-5">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-2 my-10">
       {rules.map((rule, index) => (
         <div key={index} className="flex items-center space-x-2">
           <span>
