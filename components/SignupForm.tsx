@@ -127,7 +127,7 @@ const SignupForm = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
         <div className="flex items-center justify-between gap-3">
           {groupedInputs.map((input, index) => (
             <FormField
@@ -180,6 +180,7 @@ const SignupForm = () => {
                       placeholder={input.placeholder}
                       {...field}
                     />
+
                     {input.type === "password" && (
                       <button
                         type="button"
@@ -204,12 +205,13 @@ const SignupForm = () => {
                   </div>
                 </FormControl>
                 <FormMessage />
+                {input.name === "password" && (
+                  <PasswordValidationChecklist password={password} />
+                )}
               </FormItem>
             )}
           />
         ))}
-
-        <PasswordValidationChecklist password={password} />
 
         <Button
           disabled={loading}
