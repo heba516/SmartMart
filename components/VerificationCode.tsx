@@ -18,6 +18,7 @@ import {
 } from "@/components/ui";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
+import { useRouter } from "next/navigation";
 
 const FormSchema = z.object({
   verificationCode: z.string().min(1, {
@@ -36,7 +37,10 @@ const VerificationCode = () => {
     },
   });
 
+  const router = useRouter();
+
   async function onSubmit(data: z.infer<typeof FormSchema>) {
+    router.push("/reset_password");
     console.log(data);
   }
 
