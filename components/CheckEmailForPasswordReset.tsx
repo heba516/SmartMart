@@ -1,4 +1,4 @@
-import InputField from "@/components/EmailInputField";
+import EmailInputField from "@/components/EmailInputField";
 import { Icon } from "@iconify/react";
 import Link from "next/link";
 
@@ -29,7 +29,7 @@ export default function CheckEmailForPasswordReset() {
                             reset
                         </p>
                     </div>
-                    <InputField />
+                    <EmailInputField />
                 </div>
             </div>
         </div>

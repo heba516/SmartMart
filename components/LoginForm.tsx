@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { Icon } from "@iconify/react";
 import { z } from "zod";
+import { toast } from "react-hot-toast";
 import {
     Form,
     FormField,
@@ -78,7 +79,6 @@ export default function LoginForm() {
 
     const router = useRouter();
     const [loading, setLoading] = useState<boolean>(false);
-    const [error, setError] = useState<boolean>(false);
 
     async function onSubmit(data: z.infer<typeof formSchema>) {
         try {
@@ -89,7 +89,10 @@ export default function LoginForm() {
         } catch (error) {
             //throw error;
             console.log(error);
-            setError(true);
+            // setError(true);
+            toast.error(
+                "No account found with this email/username. Please sign up"
+            );
         } finally {
             setLoading(false);
         }
@@ -111,7 +114,7 @@ export default function LoginForm() {
                         control={form.control}
                         name={input.name}
                         render={({ field }) => (
-                            <FormItem className="w-full mb-4">
+                            <FormItem className="w-full">
                                 <FormLabel className="font-semibold text-base ">
                                     {input.label}
                                 </FormLabel>
@@ -163,7 +166,7 @@ export default function LoginForm() {
                     />
                 ))}
                 <div className="flex justify-between item-center">
-                    <FormItem className="space-x-1.5 space-y-1">
+                    <FormItem className="space-x-1.5 ">
                         <FormControl>
                             <Checkbox />
                         </FormControl>
@@ -179,19 +182,19 @@ export default function LoginForm() {
                     </FormItem>
                     <Link
                         className="text-primaryRed hover:text-secondaryRed underline"
-                        href="/forgetPassword"
+                        href="/forget_password"
                     >
                         Forget password ?
                     </Link>
                 </div>
 
-                {error && (
+                {/* {error && (
                     <div className="my-2">
                         <p className="text-center text-primaryRed">
                             Could’nt find Your account
                         </p>
                     </div>
-                )}
+                )} */}
 
                 <Button
                     disabled={loading}

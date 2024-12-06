@@ -35,7 +35,7 @@ const inputs: IInput[] = [
     },
 ];
 
-export default function InputField() {
+export default function EmailInputField() {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {

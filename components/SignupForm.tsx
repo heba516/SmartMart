@@ -19,6 +19,8 @@ import { Icon } from "@iconify/react";
 import { useState } from "react";
 import { signup } from "@/app/actions/auth";
 import { useRouter } from "next/navigation";
+import { toast } from "react-hot-toast";
+
 
 const formSchema = z
   .object({
@@ -113,7 +115,11 @@ const SignupForm = () => {
       console.log(res);
       router.push("/login");
     } catch (error) {
-      throw error;
+      // throw error;
+      console.log(error);
+      toast.error(
+          "An account with this email already exists. Please log in"
+      );
     } finally {
       setLoading(false);
     }
