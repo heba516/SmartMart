@@ -18,6 +18,7 @@ import { PasswordValidationChecklist } from "./CheckValidationList";
 import { cn } from "@/lib/utils";
 import { Icon } from "@iconify/react";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 interface IInput {
   name: "password" | "confirmPassword";
@@ -71,9 +72,11 @@ const CreateNewPassword = () => {
       confirmPassword: "",
     },
   });
+  const router = useRouter();
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
+    router.push("/login");
   }
 
   const [passwordVisible, setPasswordVisible] = useState(false);

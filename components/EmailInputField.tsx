@@ -3,6 +3,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useRouter } from "next/navigation";
+
 import {
     Form,
     FormField,
@@ -16,10 +18,8 @@ import {
 import clsx from "clsx";
 
 const formSchema = z.object({
-    email: z.string().email({ message: "Invalid email address." })
-    
+    email: z.string().email({ message: "Invalid email address." }),
 });
-
 
 interface IInput {
     name: "email";
@@ -43,8 +43,11 @@ export default function EmailInputField() {
         },
     });
 
+    const router = useRouter();
     function onSubmit(values: z.infer<typeof formSchema>) {
+        
         console.log(values);
+        router.push("/verification_code");
     }
 
     return (
