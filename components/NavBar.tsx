@@ -24,7 +24,7 @@ const Icons: INavItems[] = [
 
 const NavBar = () => {
   return (
-    <nav className="flex items-center justify-between h-24 px-10 bg-white">
+    <nav className="sticky top-0 z-50 flex items-center justify-between h-24 px-10 bg-white">
       <section className="flex items-center space-x-14">
         <div className="flex items-center space-x-3">
           <Image
