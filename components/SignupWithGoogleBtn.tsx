@@ -1,8 +1,8 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { Button } from "./ui";
 import { Icon } from "@iconify/react";
 
-const SignupWithGoogleBtn = ({children}) => {
+const SignupWithGoogleBtn = ({ children }: { children: ReactNode }) => {
   return (
     <Button
       variant={"outline"}
